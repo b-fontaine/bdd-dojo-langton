@@ -176,3 +176,8 @@ Pour illustrer, j'ai réalisé un exemple de cartographie pour 10 étapes (Vous 
 
 **Etat 10**
 ![image.png](images/image%2010.png)
+
+> **Note** N'oubliez pas de lancer la commande avant de commencer :
+> ```
+> flutter pub run build_runner watch --delete-conflicting-outputs
+> ```
