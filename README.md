@@ -1,428 +1,178 @@
-# Starter Kit Flutter
+# Dojo : La Fourmi de Langton
 
-Ce projet va vous permettre de mettre en route un projet préconfiguré en quelques minutes.
+## 1. Introduction
 
-Cet outil est rendu disponible à la suite de [l'article Medium "Architecture Clean et Modulaire avec Flutter : De la Structure aux Tests Gherkin"](https://medium.com/@benotfontaine/architecture-clean-et-modulaire-avec-flutter-de-la-structure-aux-tests-gherkin-879a37c0c2a5)
+**Présentation de la Fourmi de Langton**
 
---------
+- **Histoire et Contexte :**
 
-## Créer un nouveau projet à partir du starter kit
+  La fourmi de Langton est un automate cellulaire bidimensionnel créé en 1986 par Christopher Langton, un chercheur américain pionnier dans le domaine de l’intelligence artificielle. Langton s’intéressait à la manière dont des règles simples pouvaient engendrer des comportements complexes, un concept central dans l’étude des systèmes dynamiques et de l’émergence.
 
-Première chose à faire: un fork. Une fois celui-ci fait, vous pouvez le cloner.
+  En concevant la fourmi de Langton, Langton cherchait à illustrer comment des interactions locales simples pouvaient conduire à des structures globales imprévisibles. L’automate suit des règles élémentaires : se déplaçant sur une grille de cases blanches et noires, la fourmi tourne à droite sur une case blanche, à gauche sur une case noire, change la couleur de la case, puis avance d’une case. Malgré cette simplicité, la fourmi adopte un comportement étonnamment complexe, passant d’une phase chaotique à la construction d’une “autoroute” régulière après environ 10 000 étapes.
 
-### Organisation des Flavors
-Pour organiser les flavors, il vous suffit de modifier le fichier `flavorizr.yaml`
-```yaml
-flavors:
-  prod:
-    app:
-      name: "Production"
-    android:
-      applicationId: "pro.listo.flutter_starter_kit"
-    ios:
-      bundleId: "pro.listo.flutter_starter_kit"
-    macos:
-      bundleId: "pro.listo.flutter_starter_kit"
-  preprod:
-    app:
-      name: "Preprod"
-    android:
-      applicationId: "pro.listo.flutter_starter_kit.preprod"
-    ios:
-      bundleId: "pro.listo.flutter_starter_kit.preprod"
-    macos:
-      bundleId: "pro.listo.flutter_starter_kit.preprod"
-  recette:
-    app:
-      name: "Recette"
-    android:
-      applicationId: "pro.listo.flutter_starter_kit.recette"
-    ios:
-      bundleId: "pro.listo.flutter_starter_kit.recette"
-    macos:
-      bundleId: "pro.listo.flutter_starter_kit.recette"
-  integration:
-    app:
-      name: "Integration"
-    android:
-      applicationId: "pro.listo.flutter_starter_kit.integration"
-    ios:
-      bundleId: "pro.listo.flutter_starter_kit.integration"
-    macos:
-      bundleId: "pro.listo.flutter_starter_kit.integration"
-  dev:
-    app:
-      name: "Dev"
-    android:
-      applicationId: "pro.listo.flutter_starter_kit.dev"
-    ios:
-      bundleId: "pro.listo.flutter_starter_kit.dev"
-    macos:
-      bundleId: "pro.listo.flutter_starter_kit.dev"
-  test:
-    app:
-      name: "Test"
-    android:
-      applicationId: "pro.listo.flutter_starter_kit.test"
-    ios:
-      bundleId: "pro.listo.flutter_starter_kit.test"
-    macos:
-      bundleId: "pro.listo.flutter_starter_kit.test"
+  Cette création visait à démontrer que des systèmes aux règles de base rudimentaires pouvaient générer des comportements émergents sophistiqués, offrant ainsi un modèle pour comprendre des phénomènes similaires dans la nature et les systèmes artificiels. La fourmi de Langton est devenue un exemple emblématique de l’étude des automates cellulaires et de la vie artificielle, illustrant la manière dont la complexité peut émerger de la simplicité.
 
-ide: idea
+- **Les Règles de la Fourmi de Langton :**
+    - La fourmi se déplace sur une grille de cellules blanches et noires.
+    - Règle 1 : Si la fourmi est sur une cellule blanche, elle tourne à droite, change la cellule en noire et avance d'une case.
+    - Règle 2 : Si la fourmi est sur une cellule noire, elle tourne à gauche, change la cellule en blanche et avance d'une case.
+
+
+- **Impact :**
+
+  Ce modèle est souvent utilisé pour étudier comment des systèmes simples peuvent générer des comportements émergents, offrant des insights précieux dans des domaines tels que la biologie, la sociologie et l’informatique. Il démontre que la complexité peut surgir de la simplicité, un principe fondamental dans l’étude des systèmes dynamiques et de l’émergence.
+
+  L’émergence décrit le phénomène par lequel des interactions locales simples entre les composants d’un système conduisent à des structures ou des comportements globaux complexes, non prévus par les règles individuelles. La fourmi de Langton en est une illustration parfaite : des règles élémentaires de déplacement et de changement de couleur aboutissent à des motifs structurés et répétitifs après une phase de désordre apparent.
+  Pour plus d’infos, je vous conseille l’excellente vidéo de Science Etonnante
+
+[https://youtu.be/qZRYGxF6D3w?si=QpOdWIQfKzY9Ioal](https://youtu.be/qZRYGxF6D3w?si=QpOdWIQfKzY9Ioal)
+
+**Objectifs du Dojo**
+
+- **Behavior-Driven Development (BDD)**
+
+  Le Behavior-Driven Development (BDD) est une approche de développement logiciel qui met l'accent sur la collaboration entre les développeurs, les testeurs et les experts métier. Il vise à améliorer la compréhension des besoins de l'utilisateur et à garantir que le logiciel développé répond réellement à ces besoins. Au cœur du BDD  se trouve l'idée que les spécifications doivent être écrites sous forme de scénarios comportementaux plutôt que  de tests techniques.
+
+  **Les "3 Amigos" :**
+
+  Le concept des "3 Amigos" trouve ses racines dans la volonté d'améliorer la communication et la compréhension des besoins au sein des équipes de développement. Historiquement, les silos entre les développeurs, les testeurs et les experts métier ont souvent conduit à des malentendus, des exigences mal interprétées et, finalement, à des logiciels qui ne répondent pas aux besoins réels des utilisateurs. Les "3 Amigos" cherchent à briser ces barrières en favorisant une collaboration étroite entre ces trois rôles clés.
+
+  Le concept repose sur l'idée que chaque "Amigo" apporte une perspective unique au processus de développement:
+
+  **Le Product Owner** (ou expert métier) apporte la vision du produit, les besoins de l'utilisateur et le contexte
+  métier.
+
+  **Le développeur** apporte son expertise technique, sa connaissance des possibilités et des contraintes
+  technologiques.
+
+  **Le testeur** se concentre sur la qualité, identifie les scénarios d'erreur potentiels et pense à la manière dont le
+  logiciel sera validé.
+
+  Lors d'une session "3 Amigos", l'équipe se réunit pour discuter d'une fonctionnalité ou d'une user story spécifique. L'objectif est de parvenir à une compréhension commune de ce qui doit être réalisé. C'est ici que l'**Example Mapping** entre en jeu.
+
+  L'Example Mapping est une technique qui vise à transformer les discussions abstraites en exemples concrets. Plutôt que de parler en termes généraux ou théoriques, l'équipe se concentre sur des exemples réels ou réalistes pour illustrer comment une fonctionnalité donnée devrait fonctionner. Ces exemples servent de base pour définir des scénarios de test.
+
+  La méthode se déroule généralement comme suit :
+
+  i. **Exemples** : L'équipe commence par identifier des exemples concrets qui illustrent le comportement attendu de la fonctionnalité.
+
+  ii. **Scénarios** : Ces exemples sont ensuite transformés en scénarios qui décrivent les étapes spécifiques à suivre et les résultats attendus.
+
+  iii. **Règles** : En examinant ces scénarios, l'équipe peut déduire les règles métier sous-jacentes qui guident le comportement de la fonctionnalité.
+
+  L'Example Mapping utilise des cartes de couleur pour représenter les différents éléments :
+
+    - **User Stories** (en bleu)
+    - **Règles métier** (en jaune)
+    - **Exemples ou scénarios** (en vert)
+    - **Questions ou incertitudes** (en rouge)
+
+  L'Example Mapping, lorsqu'il est utilisé dans le cadre des "3 Amigos", permet d'assurer que toutes les parties prenantes ont une compréhension claire et partagée de la fonctionnalité à développer. Cela réduit les malentendus, facilite la planification des tests et garantit que le logiciel développé répond réellement aux besoins des utilisateurs.
+
+  **Gherkin :**
+
+  Gherkin est un langage de domaine spécifique (DSL) utilisé pour décrire les comportements sans définir comment ils sont mis en œuvre. Il utilise une syntaxe simple et naturelle qui peut être lue par des non-développeurs. Les principales constructions de Gherkin sont : Feature, Scenario, Given, When, Then, And, But, Scenario Outline et examples.
+
+  https://www.wefiit.com/blog/rediger-en-gherkin
+
+  https://cucumber.io/docs/gherkin/reference/
+
+  Une fois maîtrisé, le BDD apporte son lot d’avantages :
+
+  **Amélioration de la communication** : Le BDD favorise la collaboration et garantit que les développeurs, testeurs et experts métier ont une compréhension commune des exigences.
+
+  **Documentation vivante** : Les scénarios Gherkin servent de documentation qui est toujours à jour.**Réduction des malentendus** : En définissant les comportements attendus, le BDD réduit les ambiguïtés et les malentendus.**Feedback rapide** : Les tests automatisés fournissent un retour rapide sur la qualité du code.
+
+  **Mocks et Code Smells :**
+
+  Les mocks sont des objets qui simulent le comportement d'objets réels de manière contrôlée. Bien que les mocks soient utiles, une utilisation excessive peut être considérée comme un "code smell". Selon Eric Elliott(6), une dépendance excessive aux mocks peut indiquer une conception inappropriée et rendre le code plus difficile à maintenir.
+
+  **BDD et TDD :**
+
+  Le BDD est souvent considéré comme une évolution du TDD. Tandis que le TDD se concentre sur le test des unités individuelles de code, le BDD élargit cette approche pour tester le comportement global du système. Le BDD met l'accent sur la vérification que le logiciel fait ce que l'utilisateur attend, tandis que le TDD se concentre sur la façon dont il le fait. Dans la pratique, le BDD et le TDD peuvent être utilisés conjointement : le BDD pour définir le comportement global et le TDD pour implémenter les détails techniques.
+
+  En conclusion, le BDD est une approche puissante qui met l'accent sur la collaboration, la compréhension des besoins de l'utilisateur et la garantie que le logiciel développé répond réellement à ces besoins. Il peut être utilisé en complément ou en remplacement du TDD, selon les besoins du projet.
+
+    - Se familiariser avec le pattern BLoC dans Flutter.
+    - Apprendre à rédiger des tests automatisés avec Gherkin.
+    - Développer une simulation visuelle de la fourmi de Langton avec une difficulté croissante.
+
+  **BLoC et VIPER**
+
+
+![Différents patterns de présentation avec gestion d’état](images/Untitled.jpeg)
+
+Différents patterns de présentation avec gestion d’état
+
+```mermaid
+graph TD
+    A[View] -->|User Interaction| B[BLoC]
+    B -->|Request Data| C[Interactor]
+    C -->|Execute Buisiness Action| D[UseCase]
+    C -->|Result| B
+    B -->|Update UI| A
+    A -->|Navigation| E[Router]
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#f9f,stroke:#333,stroke-width:2px
+    style C fill:#f9f,stroke:#333,stroke-width:2px
+    style D fill:#f9f,stroke:#333,stroke-width:2px
+    style E fill:#f9f,stroke:#333,stroke-width:2px
 ```
 
-Vous pouvez ajouter/supprimer les environnements à votre convenance, à l'exception de :
-- `prod`: Il s'agit de votre environnement de production
-- `dev`: C'est votre poste (exécution locale)
-- `test`: indispensables à l'exécution des tests
+## 2. Préparons la grille et notre fourmi
 
-Une fois que vous l'aurez modifié, lancez la commande
-```shell
-flutter pub run flutter_flavorizr
+```gherkin
+Feature: Fourmi de Langton
+
+  Scenario: Conditions initiales
+     When Je lance l'application
+     Then J'ai une grille de {21} sur {21} cellules 
+     And J'ai une fourmi aux coordonnées {10}, {10} orientée {"Nord"}
+     And Je vois un widget {AppBar} avec le texte {"Langton Ant"}
+     And Je vois un wuget {IconButton} avec l'icone {Icons.play_arrow_sharp}
 ```
 
-> **ATTENTION** lancer cette commande modifie les fichiers `main.dart` et `app.dart`. 
-> Pensez à les sauvegarder avant de lancer la commande
+## 3. Déplacements
 
-## Configurer son environnement de développement
+Rappel : notre Fourmi de Langton se déplace selon ces 2 règles :
 
-Dans le répertoire du projet, les configuration de lancement de l'application sont disponibles dans le dossier `.run`.
-Elles devraient être automatiquement détectées par votre IDE. Si ce n'est pas le cas, vous pouvez les ajouter manuellement.
+- Sur une case blanche, tourner à 90° à droite, inverser la couleur de la case, avancer d'une unité
+- Sur une case noire, tourner à 90° à gauche, inverser la couleur de la case, avancer d'une unité
 
-Avant de commencer à coder, il est nécessaire de lancer les scripts :
-``` shell
-flutter pub get
-```
+Veuillez implémenter ces règles lors du clic sur le bouton de lecture.
 
-et
+Pour illustrer, j'ai réalisé un exemple de cartographie pour 10 étapes (Vous pouvez l'utiliser pour faire vos tests unitaires) :
 
-``` shell
-flutter pub run build_runner watch --delete-conflicting-outputs
-```
+**Etat 0**
+![image.png](images/image.png)
 
-Ces commandes permettent d'installer ou mettre à jour les dépendances du projet et de l'écoute des modification pour les générateurs de code (tests Gherkin, injection de dépendances, etc).
+**Etat 1**
+![image.png](images/image%201.png)
 
-## les tests
+**Etat 2**
+![image.png](images/image%202.png)
 
-### Retrofit
+**Etat 3**
+![image.png](images/image%203.png)
 
-Les mocks api utilisés pour retrofit sont à mettre dans `/mocks/api/`
-Leur format est le suivant :
-```json
-{
-  "GET": {
-    "statusCode": 200,
-    "data": {}
-  }
-}
-```
-Vous pouvez mettre des objets JSON ou des tableaux
+**Etat 4**
+![image.png](images/image%204.png)
 
-### Steps déjà installées
+**Etat 5**
+![image.png](images/image%205.png)
 
-- **J'ai lancé l'application avec succès**: Lance l'application et prépare l'environnement
-- **L'application démarre depuis la route {'/'}**: Lance l'application sur une route spécifique et prépare l'environnement
-- **Je redimensionne mon écran vers une largeur de {1900} et une hauteur de {1080}**: redimensionne l'écran virtuel utilisé pour les tests
+**Etat 6**
+![image.png](images/image%206.png)
 
+**Etat 7**
+![image.png](images/image%207.png)
 
-## Fichiers `*_module.dart`
+**Etat 8**
+![image.png](images/image%208.png)
 
-Vous aurez remarqué la présence de fichiers suffixés `*_module.dart` dans chaque dossier. Comme les autres couches (domain et ui) n'ont le droit que d'importer le fichier module de la couche précédente :
+**Etat 9**
+![image.png](images/image%209.png)
 
-- `ui` importe `domain_module.dart`
-- `domain` importe `data_module.dart`
-
-Automatiquement, ces modules exportent les sous-dossiers de leur dossier. Ainsi, `domain_module.dart` exporte `repositories` et `usecases` et `data_module.dart` exporte `datasources` et `models`.
-De cette manière, chaque couche n'a accès qu'aux éléments qu'elle doit utiliser. Donc, si vous voulez rendre accessible un élément d'une couche à une autre, il faut l'exporter dans le module de la couche supérieure.
-
-## Ajouter une fonctionnalité UI
-
-### Créer un Widget Commun
-
-**ATTENTION** : Un widget commun est un widget qui peut être utilisé dans plusieurs écrans. Il ne doit pas être spécifique à un écran.
-De même, il ne doit pas contenir de logiques métiers, être le plus simple possible et ne peut être ajouté que s'il n'est utile qu'au projet en question.
-
-Sinon, sa destination est le **design system**.
-
-### Créer un écran
-
-#### Initialisation
-Avant d'ajouter des éléments à l'écran, il y a plusieurs étapes à suivre :
-
-- Créer le dossier avec un nom explicite
-- Créer le fichier `*_module.dart` dans le dossier. Il contiendra la classe qui injectera les routes de l'écran dans le router de l'application.
-- Créer un sous-dossier par BLoC.
-
-#### Créer un BLoC
-
-Par BLoC, voici comment enregistrer les fichiers :
-
-> Dans cet exemple, le bloc sera nommé `login`
-
-```markdown
-|_ login
-    |_ view
-        |_ components
-            |_ login_button.dart (Widget stateless)
-            |_ login_form.dart (Widget stateless)
-        |_ login_page.dart (Initialise le BLoC)
-        |_ login_view.dart (Widget qui affiche l'écran et gère l'état)
-    |_ login_bloc.dart (BLoC)
-    |_ login_event.dart (Événements du BLoC)
-    |_ login_state.dart (États du BLoC)
-    |_ login_interactor.dart (Anti-Corruption Layer)
-    |_ login_module.dart (Module qui injecte les routes de l'écran dans le router)
-```
-
-Pour en savoir plus, merci de vous référer à la documentation Listo [Flutter Avancé](https://www.notion.so/listopaye/Flutter-avanc-e-0891213511e14e8d86380ea41278605b?pvs=4).
-
-Enfin, le seul élément à être injecté est l'interactor. Il est injecté en tant que Singleton et utilisé via le `create` de `BlocProvider`.
-
-#### Exemple de module
-
-Vous pourrez directement copier-coller ce code pour créer un module.
-
-```dart
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:injectable/injectable.dart';
-
-import '../ui_module.dart';
-
-@singleton
-class FeatureModule implements UIModule {
-  final AppRouter _appRouter;
-
-  FeatureModule(this._appRouter) {
-    configure();
-  }
-
-  void configure() {
-    _appRouter.addRoute(
-      path: '/user/settings',
-      builder: (context, state) {
-        return const UserSettingsPage();
-      },
-    );
-  }
-}
-
-```
-
-Remplacez `Feature` par le nom de votre fonctionnalité. Pour le reste, utilisez les fonctionnalités `go_router` comme habituellement.
-Les routes et sous-routes de l'écran doivent être ajoutées dans la méthode `configure()`.
-
-## Ajouter une fonctionnalité métier
-
-Chaque use case et entities associées doivent être publié via des exports spécifiques dans, respectivement `usecases_module.dart` et `entities_module.dart`.
-Grâce à ceci, ils seront directement disponible depuis l'import de `domain_module.dart`.
-
-### Injection de dépendances
-
-Chaque Use Case doit être injecté en tant que Singleton via l'annotation `@singleton` de `injectable`.
-
-Ceci permet de ne garder qu'une seule instance de chaque Use Case et d'éviter les problèmes de synchronisation.
-
-### Cas des appels asynchrones
-
-Pour un souci de cohérence, les appels asynchrones doivent être exclusivement gérés via des `Stream` et mis à disposition des interactors de la, couche `UI`.
-
-### Anti-Corruption Layer
-
-Pour éviter la transmission de "roten code" entre les couches, il est nécessaire de créer une couche d'anti-corruption entre les couches `Data` et `Domain`.
-Ainsi, chaque entité doit contenir son pattern `protocol` via une factory nommée `fromDto`.
-
-## Ajouter une fonctionnalité technique
-
-### Utiliser Retrofit
-
-Dans `core/di/api/backend_client.dart`, vous trouverez la classe `BackendClient` qui est un singleton qui permet de faire des appels HTTP.
-
-Pour ajouter une nouvelle méthode, vous pouvez vous baser sur un de ces exemples :
-```dart
-  @GET('/tasks/{id}')
-  Future<Task> getTask(@Path('id') String id);
-  
-  @GET('/demo')
-  Future<String> queries(@Queries() Map<String, dynamic> queries);
-  
-  @GET('https://httpbin.org/get')
-  Future<String> namedExample(
-      @Query('apikey') String apiKey,
-      @Query('scope') String scope,
-      @Query('type') String type,
-      @Query('from') int from);
-  
-  @PATCH('/tasks/{id}')
-  Future<Task> updateTaskPart(
-      @Path() String id, @Body() Map<String, dynamic> map);
-  
-  @PUT('/tasks/{id}')
-  Future<Task> updateTask(@Path() String id, @Body() Task task);
-  
-  @DELETE('/tasks/{id}')
-  Future<void> deleteTask(@Path() String id);
-  
-  @POST('/tasks')
-  Future<Task> createTask(@Body() Task task);
-  
-  @POST('http://httpbin.org/post')
-  Future<void> createNewTaskFromFile(@Part() File file);
-  
-  @POST('http://httpbin.org/post')
-  @FormUrlEncoded()
-  Future<String> postUrlEncodedFormData(@Field() String hello);
-```
-
-> **ATTENTION** Seuls les Repositories peuvent utiliser Retrofit. Les Use Cases doivent utiliser les Repositories.
-
-### Ajouter une repository
-
-Voici comment déclarer votre repository
-
-```dart
-import 'package:injectable/injectable.dart';
-
-@injectable
-class MyRepository {
-  final Service _service;
-  
-  @factoryMethod
-  MyRepository(this._service);
-  
-  repoDto call() {
-    return _service.monAction();
-  }
-}
-```
-
-Et voici comment l'utiliser :
-
-```dart
-@injectable
-class MyUseCase {
-  final MyRepository _repository;
-  
-  @factoryMethod
-  MyUseCase(this._repository);
-  
-  Future<DomainEntity> call() async {
-    return DomainEntity.fromDto(_repository());
-  }
-}
-```
-
-## Format des messages de commit
-Ces instructions reprennent celles de [Angular](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#)
-
-Ce format conduit à un **historique de commit plus facile à lire**.
-
-Chaque message de commit est composé d'un **en-tête**, d'un **corps**, et d'un **pied de page**.
-
-
-```
-<en-tête>
-<LIGNE VIDE>
-<corps>
-<LIGNE VIDE>
-<pied de page>
-```
-
-L'`en-tête` est obligatoire et doit se conformer au format En-tête de Message de Commit.
-
-Le `corps` est obligatoire pour tous les commits sauf pour ceux de type "docs".
-Lorsque le corps est présent, il doit comporter au moins 20 caractères et se conformer au format Corps de Message de Commit.
-
-Le `pied de page` est facultatif. Le format Pied de Page de Message de Commit décrit l'utilisation du pied de page et la structure qu'il doit avoir.
-
-
-#### En-tête de Message de Commit
-
-```
-<carte jira> - <type>(<portée>) : <résumé court>
-    |            │       │             │
-    |            │       │             └─⫸ Résumé au temps présent. Non capitalisé. Pas de point à la fin.
-    |            │       │
-    |            │       └─⫸ Portée du Commit : core|data|domain|ui|design
-    |            │
-    |            └─⫸ Type de Commit : build|ci|docs|feat|fix|perf|refactor|test
-    └─⫸ Numéro de carte JIRA : Numéro que vous avez récupéré sur JIRA (LIS-XXX où XXX est le numéro de la carte)
-```
-
-Les champs `<carte jira>`, `<type>` et `<résumé>` sont obligatoires, le champ `(<portée>)` est facultatif.
-
-
-##### Type
-
-Doit être l'un des suivants :
-
-* **build**: Changements qui affectent le système de build ou les dépendances externes (exemples de portées : gulp, broccoli, npm)
-* **ci**: Changements dans nos fichiers et scripts de configuration CI (exemples : CircleCi, SauceLabs)
-* **docs**: Changements uniquement dans la documentation
-* **feat**: Une nouvelle fonctionnalité
-* **fix**: Une correction de bug
-* **perf**: Un changement de code qui améliore la performance
-* **refactor**: Un changement de code qui ne corrige pas un bug ni n'ajoute une fonctionnalité
-* **test**: Ajout de tests manquants ou correction de tests existants
-
-
-##### Portée
-Il s'agit là de mettre le numéro de carte Jira qui est associée au commit.
-
-
-##### Résumé
-
-Utilisez le champ résumé pour fournir une description succincte du changement :
-
-* utilisez l'impératif, temps présent : "changer" et non "changé" ni "changements"
-* ne capitalisez pas la première lettre
-* pas de point (.) à la fin
-
-
-#### Corps de Message de Commit
-
-Comme dans le résumé, utilisez l'impératif, temps présent : "corriger" et non "corrigé" ni "corrections".
-
-Expliquez la motivation du changement dans le corps du message de commit. Ce message de commit devrait expliquer _pourquoi_ vous effectuez le changement.
-Vous pouvez inclure une comparaison du comportement précédent avec le nouveau comportement afin d'illustrer l'impact du changement.
-
-
-#### Pied de Page de Message de Commit
-
-Le pied de page peut contenir des informations sur les changements majeurs et les dépréciations et est également l'endroit pour référencer des issues GitHub, des tickets Jira, et d'autres PR que ce commit ferme ou auxquels il est lié.
-Par exemple :
-
-```
-MAJOR UPDATE : <résumé du changement majeur>
-<LIGNE VIDE>
-<description du changement majeur + instructions de migration>
-<LIGNE VIDE>
-<LIGNE VIDE>
-Fix #<numéro de l'issue>
-```
-
-ou
-
-```
-DEPRECATED : <ce qui est déprécié>
-<LIGNE VIDE>
-<description de la dépréciation + chemin de mise à jour recommandé>
-<LIGNE VIDE>
-<LIGNE VIDE>
-Close #<numéro de la PR>
-```
-
-La section Changement Majeur devrait commencer par la phrase "CHANGEMENT MAJEUR : " suivie d'un résumé du changement majeur, d'une ligne vide, et d'une description détaillée du changement majeur qui inclut également les instructions de migration.
-
-De même, une section Dépréciation devrait commencer par "DÉPRÉCIÉ : " suivi d'une courte description de ce qui est déprécié, d'une ligne vide, et d'une description détaillée de la dépréciation qui mentionne également le chemin de mise à jour recommandé.
-
-
-### Revert commits
-
-Si le commit annule un commit précédent, il doit commencer par `revert: `, suivi de l'en-tête du commit annulé.
-
-Le contenu du corps du message de commit doit contenir :
-
-- des informations sur le SHA du commit annulé dans le format suivant : `This reverts commit <SHA>`,
-- une description claire de la raison pour laquelle le message de commit est annulé.
+**Etat 10**
+![image.png](images/image%2010.png)
